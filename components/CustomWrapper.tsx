@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { PaperProvider } from "react-native-paper";
-import { ThemeProvider } from "../context/ThemeContext";
+import { ThemeProvider, useThemeContext } from "../context/ThemeContext";
 
 interface Screen {
   name: string;
@@ -13,25 +13,40 @@ interface CustomWrapperProps {
   initialRouteName: string;
 }
 
-const CustomWrapper = ({ screens, initialRouteName }: CustomWrapperProps) => {
+const InnerWrapper = ({ screens, initialRouteName }: CustomWrapperProps) => {
   const Stack = createNativeStackNavigator();
+  const { theme } = useThemeContext();
 
   return (
+    <PaperProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={initialRouteName}
+          screenOptions={{
+            headerStyle: { backgroundColor: theme.surface },
+            headerTintColor: theme.text,
+            contentStyle: { backgroundColor: theme.background },
+          }}
+        >
+          {screens.map((screen) => (
+            <Stack.Screen
+              key={screen.name}
+              name={screen.name}
+              component={screen.component}
+            />
+          ))}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
+  );
+};
+
+const CustomWrapper = (props: CustomWrapperProps) => {
+  return (
     <ThemeProvider>
-      <PaperProvider>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName={initialRouteName}>
-            {screens.map((screen) => (
-              <Stack.Screen
-                key={screen.name}
-                name={screen.name}
-                component={screen.component}
-              />
-            ))}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PaperProvider>
+      <InnerWrapper {...props} />
     </ThemeProvider>
   );
 };
+
 export default CustomWrapper;
