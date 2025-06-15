@@ -7,17 +7,23 @@ import {
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
 } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { option } from "../hooks/types";
 import { useThemeContext } from "../context/ThemeContext";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { StatusBar as RNStatusBar } from "react-native";
+import AppZoomIcon from "./AppZoomIcon";
 
 type NavigationProp = NativeStackNavigationProp<option, "StartGame">;
 
 const StartGameScreen = () => {
   const [enteredNumber, setEnteredNumber] = useState("");
+  const [zoomOut, setZoomOut] = useState(false);
+
   const navigation = useNavigation<NavigationProp>();
   const { theme, toggleTheme } = useThemeContext();
 
@@ -33,6 +39,12 @@ const StartGameScreen = () => {
       return;
     }
     navigation.navigate("Game", { chosenNumber: number });
+  }
+
+  function handlePressZoom() {
+    setZoomOut((pre) => !pre);
+    RNStatusBar.setHidden(!zoomOut, "fade");
+    navigation.setOptions({ headerShown: zoomOut });
   }
 
   const styles = StyleSheet.create({
@@ -79,6 +91,11 @@ const StartGameScreen = () => {
       fontSize: 16,
       marginBottom: 10,
       color: theme.text,
+    },
+    zoomIcon: {
+      position: "absolute",
+      bottom: 24,
+      left: 24,
     },
   });
 
@@ -130,6 +147,12 @@ const StartGameScreen = () => {
         >
           Toggle Theme
         </Button>
+
+        <AppZoomIcon
+          zoomOut={zoomOut}
+          handlePressZoom={handlePressZoom}
+          color={theme.text}
+        />
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );

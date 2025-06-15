@@ -8,7 +8,7 @@ export const lightTheme = {
   onSecondary: "#FFFFFF",
   error: "#B00020",
   onError: "#FFFFFF",
-  text: "#000000",
+  text: "#1A1A1A",
   onBackground: "#000000",
   onSurface: "#000000",
   placeholder: "#888888",
@@ -28,4 +28,5 @@ export const darkTheme = {
   onBackground: "#FFFFFF",
   onSurface: "#FFFFFF",
   placeholder: "#AAAAAA",
+  modernBlack: "#888888",
 } as const;
