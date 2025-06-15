@@ -122,7 +122,7 @@ const StartGameScreen = () => {
         </Button>
 
         <Button
-          mode="outlined"
+          mode="contained"
           onPress={toggleTheme}
           style={styles.button}
           labelStyle={styles.buttonLabel}

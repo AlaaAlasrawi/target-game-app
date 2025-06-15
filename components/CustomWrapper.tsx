@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { PaperProvider } from "react-native-paper";
 import { ThemeProvider, useThemeContext } from "../context/ThemeContext";
+import { StatusBar } from "expo-status-bar";
 
 interface Screen {
   name: string;
@@ -15,10 +16,11 @@ interface CustomWrapperProps {
 
 const InnerWrapper = ({ screens, initialRouteName }: CustomWrapperProps) => {
   const Stack = createNativeStackNavigator();
-  const { theme } = useThemeContext();
+  const { theme, isDark } = useThemeContext();
 
   return (
     <PaperProvider>
+      <StatusBar style={isDark ? "light" : "dark"} />
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={initialRouteName}
