@@ -43,8 +43,8 @@ const StartGameScreen = () => {
 
   function handlePressZoom() {
     setZoomOut((pre) => !pre);
-    RNStatusBar.setHidden(!zoomOut, "fade");
-    navigation.setOptions({ headerShown: zoomOut });
+    navigation.setOptions({ headerShown: !zoomOut, animation: "none" });
+    RNStatusBar.setHidden(zoomOut, "fade");
   }
 
   const styles = StyleSheet.create({
@@ -52,7 +52,6 @@ const StartGameScreen = () => {
       flex: 1,
       padding: 24,
       justifyContent: "center",
-      backgroundColor: theme.background,
     },
     input: {
       width: "100%",
