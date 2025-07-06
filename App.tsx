@@ -1,9 +1,6 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { Text, Pressable } from "react-native";
-import { useThemeContext } from "./context/ThemeContext"; // Optional if you want to use the theme color
-import GameScreen from "./components/GameScreen";
-import StartGameScreen from "./components/StartGameScreen";
+import StartGameScreen from "./components/screens/StartGameScreen";
 import CustomWrapper from "./components/CustomWrapper";
+import GameScreen from "./components/screens/GameScreen";
 export default function App() {
   return (
     <CustomWrapper

@@ -9,10 +9,10 @@ import {
 import { Button, TextInput } from "react-native-paper";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { option } from "../hooks/types";
-import { useThemeContext } from "../context/ThemeContext";
+import { option } from "../../hooks/types";
+import { useThemeContext } from "../../context/ThemeContext";
 import { StatusBar as RNStatusBar } from "react-native";
-import AppZoomIcon from "./AppZoomIcon";
+import AppZoomIcon from "../AppZoomIcon";
 
 type NavigationProp = NativeStackNavigationProp<option, "StartGame">;
 
