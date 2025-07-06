@@ -76,7 +76,7 @@ const StartGameScreen = () => {
       marginTop: 20,
     },
     buttonLabel: {
-      color: theme.onSecondary,
+      color: theme.buttonText,
       fontWeight: "bold",
       fontSize: 16,
     },
