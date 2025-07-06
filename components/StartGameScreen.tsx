@@ -2,19 +2,15 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
-  View,
   Keyboard,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
-  Platform,
-  Pressable,
 } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { option } from "../hooks/types";
 import { useThemeContext } from "../context/ThemeContext";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { StatusBar as RNStatusBar } from "react-native";
 import AppZoomIcon from "./AppZoomIcon";
 
@@ -25,6 +21,8 @@ const StartGameScreen = () => {
   const [zoomOut, setZoomOut] = useState(false);
 
   const navigation = useNavigation<NavigationProp>();
+  const [error, setError] = useState<string | undefined>(undefined);
+
   const { theme, toggleTheme } = useThemeContext();
 
   function handleChange(text: string) {
@@ -34,10 +32,11 @@ const StartGameScreen = () => {
   function handlePress() {
     const number = parseInt(enteredNumber, 10);
     if (isNaN(number) || number < 1 || number > 99) {
-      console.log("Please enter a valid number between 1 and 99.");
+      setError("Please enter a number between 1 and 99.");
       setEnteredNumber("");
       return;
     }
+    setError(undefined);
     navigation.navigate("Game", { chosenNumber: number });
   }
 
@@ -96,6 +95,11 @@ const StartGameScreen = () => {
       bottom: 24,
       left: 24,
     },
+    error: {
+      color: theme.error,
+      marginTop: 8,
+      textAlign: "center",
+    },
   });
 
   return (
@@ -126,6 +130,7 @@ const StartGameScreen = () => {
             },
           }}
         />
+        {error && <Text style={styles.error}>{error}</Text>}
 
         <Button
           mode="contained"
