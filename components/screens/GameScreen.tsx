@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Alert, ScrollView } from "react-native";
-import { RouteProp, useRoute } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { option } from "../../hooks/types";
 import { useThemeContext } from "../../context/ThemeContext";
 import ViewBox from "../ViewBox";
 import { Button } from "react-native-paper";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type GameScreenRouteProp = RouteProp<option, "Game">;
 
@@ -17,6 +18,9 @@ const GameScreen = () => {
   const [max, setMax] = useState(99);
   const [guessedNumber, setGuessedNumber] = useState(Math.floor((1 + 99) / 2));
   const [log, setLog] = useState<number[]>([Math.floor((1 + 99) / 2)]);
+
+  type NavigationProp = NativeStackNavigationProp<option, "StartGame">;
+  const navigation = useNavigation<NavigationProp>();
 
   const styles = StyleSheet.create({
     container: {
@@ -109,6 +113,7 @@ const GameScreen = () => {
         "finally!",
         `🎉 phone guessed the number` + " with " + log.length + " attempt"
       );
+      navigation.navigate("StartGame");
     } else {
       Alert.alert("Incorrect", "That's not the correct number");
     }
