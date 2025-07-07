@@ -113,7 +113,7 @@ const GameScreen = () => {
         "finally!",
         `🎉 phone guessed the number` + " with " + log.length + " attempt"
       );
-      navigation.navigate("StartGame");
+      navigation.pop();
     } else {
       Alert.alert("Incorrect", "That's not the correct number");
     }
