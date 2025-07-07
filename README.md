@@ -19,7 +19,6 @@ A fun mobile app built with **React Native + TypeScript**, where the user choose
 
 1. **StartGameScreen** – User enters a number
 2. **GameScreen** – Phone makes guesses and user gives feedback
-3. **GameOverScreen** – Displays number of attempts and the correct guess
 
 ---
 
@@ -29,7 +28,7 @@ A fun mobile app built with **React Native + TypeScript**, where the user choose
 2. Phone makes a guess.
 3. User taps "Higher" or "Lower" to guide the phone.
 4. Game continues until the phone guesses the correct number.
-5. The result is shown on the Game Over screen.
+5. The result is shown.
 
 ---
 
