@@ -1,4 +1,4 @@
-# 🤖 Target Game App
+# 🤖 Target Number Game App
 
 A fun mobile app built with **React Native + TypeScript**, where the user chooses a number between 1–99, and the phone tries to guess it. The user gives feedback ("Higher" / "Lower") until the phone guesses correctly.
 
