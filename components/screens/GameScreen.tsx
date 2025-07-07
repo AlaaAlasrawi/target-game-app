@@ -79,6 +79,7 @@ const GameScreen = () => {
     setMax(newMax);
     setGuessedNumber(next);
     setLog((prev) => [...prev, next]);
+    console.log(log);
   }
 
   function handleLessPress() {

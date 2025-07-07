@@ -19,9 +19,9 @@ type NavigationProp = NativeStackNavigationProp<option, "StartGame">;
 const StartGameScreen = () => {
   const [enteredNumber, setEnteredNumber] = useState("");
   const [zoomOut, setZoomOut] = useState(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const navigation = useNavigation<NavigationProp>();
-  const [error, setError] = useState<string | undefined>(undefined);
 
   const { theme, toggleTheme } = useThemeContext();
 

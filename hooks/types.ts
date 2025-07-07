@@ -1,4 +1,4 @@
 export type option = {
   StartGame: undefined;
-  Game: { chosenNumber: number };
+  Game: { chosenNumber: number; id?: string };
 };
