@@ -70,11 +70,13 @@ const StartGameScreen = () => {
       paddingTop: 20,
     },
     text: {
+      paddingTop: 20,
       color: theme.text,
-      fontSize: 28,
+      fontSize: 32,
       fontWeight: "bold",
       textAlign: "center",
       marginBottom: 20,
+      fontFamily: "BungeeTint-Regular",
     },
     input: {
       width: "100%",
@@ -122,7 +124,7 @@ const StartGameScreen = () => {
         <KeyboardAvoidingView style={styles.container} behavior="padding">
           <Image
             style={styles.image}
-            source={require("../../assets/target-pic.jpg")}
+            source={require("../../assets/images/target-pic.jpg")}
           />
 
           <View style={styles.innerContainer}>
