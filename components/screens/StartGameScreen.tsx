@@ -5,6 +5,11 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  Image,
+  View,
+  SafeAreaView,
+  Platform,
+  StatusBar,
 } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -22,7 +27,6 @@ const StartGameScreen = () => {
   const [error, setError] = useState<string | undefined>(undefined);
 
   const navigation = useNavigation<NavigationProp>();
-
   const { theme, toggleTheme } = useThemeContext();
 
   function handleChange(text: string) {
@@ -47,17 +51,23 @@ const StartGameScreen = () => {
   }
 
   const styles = StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: theme.background,
+      paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    },
     container: {
       flex: 1,
-      padding: 24,
-      justifyContent: "center",
+      justifyContent: "flex-start",
     },
-    input: {
+    image: {
       width: "100%",
-      fontSize: 20,
-      textAlign: "center",
-      backgroundColor: theme.surface,
-      borderRadius: 8,
+      height: 220,
+      resizeMode: "cover",
+    },
+    innerContainer: {
+      paddingHorizontal: 24,
+      paddingTop: 20,
     },
     text: {
       color: theme.text,
@@ -66,8 +76,12 @@ const StartGameScreen = () => {
       textAlign: "center",
       marginBottom: 20,
     },
-    btn: {
-      backgroundColor: theme.primary,
+    input: {
+      width: "100%",
+      fontSize: 20,
+      textAlign: "center",
+      backgroundColor: theme.surface,
+      borderRadius: 8,
     },
     button: {
       backgroundColor: theme.primary,
@@ -90,75 +104,85 @@ const StartGameScreen = () => {
       marginBottom: 10,
       color: theme.text,
     },
-    zoomIcon: {
-      position: "absolute",
-      bottom: 24,
-      left: 24,
-    },
     error: {
       color: theme.error,
       marginTop: 8,
       textAlign: "center",
     },
+    zoomIcon: {
+      position: "absolute",
+      bottom: 24,
+      left: 24,
+    },
   });
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView style={styles.container}>
-        <Text style={styles.text}>Guess Number Game</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+          <Image
+            style={styles.image}
+            source={require("../../assets/target-pic.jpg")}
+          />
 
-        {enteredNumber ? (
-          <Text style={styles.chosenNumber}>
-            Chosen number is: {enteredNumber}
-          </Text>
-        ) : null}
+          <View style={styles.innerContainer}>
+            <Text style={styles.text}>Guess Number Game</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Enter a number"
-          placeholderTextColor={theme.placeholder}
-          textColor={theme.text}
-          mode="outlined"
-          keyboardType="number-pad"
-          inputMode="numeric"
-          maxLength={2}
-          value={enteredNumber}
-          onChangeText={handleChange}
-          theme={{
-            colors: {
-              primary: theme.primary,
-            },
-          }}
-        />
-        {error && <Text style={styles.error}>{error}</Text>}
+            {enteredNumber ? (
+              <Text style={styles.chosenNumber}>
+                Chosen number is: {enteredNumber}
+              </Text>
+            ) : null}
 
-        <Button
-          mode="contained"
-          onPress={handlePress}
-          style={styles.button}
-          labelStyle={styles.buttonLabel}
-          contentStyle={styles.buttonContent}
-        >
-          Submit
-        </Button>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter a number"
+              placeholderTextColor={theme.placeholder}
+              textColor={theme.text}
+              mode="outlined"
+              keyboardType="number-pad"
+              inputMode="numeric"
+              maxLength={2}
+              value={enteredNumber}
+              onChangeText={handleChange}
+              theme={{
+                colors: {
+                  primary: theme.primary,
+                },
+              }}
+            />
+            {error && <Text style={styles.error}>{error}</Text>}
 
-        <Button
-          mode="contained"
-          onPress={toggleTheme}
-          style={styles.button}
-          labelStyle={styles.buttonLabel}
-          contentStyle={styles.buttonContent}
-        >
-          Toggle Theme
-        </Button>
+            <Button
+              mode="contained"
+              onPress={handlePress}
+              style={styles.button}
+              labelStyle={styles.buttonLabel}
+              contentStyle={styles.buttonContent}
+            >
+              Submit
+            </Button>
 
-        <AppZoomIcon
-          zoomOut={zoomOut}
-          handlePressZoom={handlePressZoom}
-          color={theme.text}
-        />
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+            <Button
+              mode="contained"
+              onPress={toggleTheme}
+              style={styles.button}
+              labelStyle={styles.buttonLabel}
+              contentStyle={styles.buttonContent}
+            >
+              Toggle Theme
+            </Button>
+          </View>
+
+          <AppZoomIcon
+            style={styles.zoomIcon}
+            zoomOut={zoomOut}
+            handlePressZoom={handlePressZoom}
+            color={theme.text}
+          />
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 

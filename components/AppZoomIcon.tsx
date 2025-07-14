@@ -5,11 +5,17 @@ import { Pressable, StyleSheet } from "react-native";
 interface AppZoomIconProps {
   zoomOut: boolean;
   color: any;
+  style?: any;
   handlePressZoom: () => void;
 }
-const AppZoomIcon = ({ zoomOut, color, handlePressZoom }: AppZoomIconProps) => {
+const AppZoomIcon = ({
+  zoomOut,
+  color,
+  style,
+  handlePressZoom,
+}: AppZoomIconProps) => {
   return (
-    <Pressable onPress={handlePressZoom} style={styles.zoomIcon}>
+    <Pressable onPress={handlePressZoom} style={[styles.zoomIcon, style]}>
       <MaterialIcons
         name={zoomOut ? "zoom-out-map" : "zoom-in-map"}
         size={32}
