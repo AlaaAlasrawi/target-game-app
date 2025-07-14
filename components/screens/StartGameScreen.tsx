@@ -11,7 +11,7 @@ import {
   Platform,
   StatusBar,
 } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import { ActivityIndicator, Button, TextInput } from "react-native-paper";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
 import { option } from "../../hooks/types";
@@ -25,6 +25,7 @@ const StartGameScreen = () => {
   const [enteredNumber, setEnteredNumber] = useState("");
   const [zoomOut, setZoomOut] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
+  const [imageLoading, setImageLoading] = useState(false);
 
   const navigation = useNavigation<NavigationProp>();
   const { theme, toggleTheme } = useThemeContext();
@@ -50,6 +51,14 @@ const StartGameScreen = () => {
     RNStatusBar.setHidden(zoomOut, "fade");
   }
 
+  function handleImageLoading() {
+    console.log("Loading image...");
+    setImageLoading(true);
+  }
+  function handleImageLoaded() {
+    console.log("Image loaded!");
+    setImageLoading(false);
+  }
   const styles = StyleSheet.create({
     safeArea: {
       flex: 1,
@@ -71,7 +80,6 @@ const StartGameScreen = () => {
     },
     text: {
       paddingTop: 20,
-      color: theme.text,
       fontSize: 32,
       fontWeight: "bold",
       textAlign: "center",
@@ -116,8 +124,10 @@ const StartGameScreen = () => {
       bottom: 24,
       left: 24,
     },
+    loading: {},
   });
 
+  const imageComponet = ``;
   return (
     <SafeAreaView style={styles.safeArea}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -125,8 +135,19 @@ const StartGameScreen = () => {
           <Image
             style={styles.image}
             source={require("../../assets/images/target-pic.jpg")}
+            onLoadStart={handleImageLoading}
+            onLoadEnd={handleImageLoaded}
+            onError={(e) =>
+              console.warn("Image failed to load", e.nativeEvent.error)
+            }
           />
-
+          {imageLoading && (
+            <ActivityIndicator
+              size="large"
+              color={theme.primary}
+              style={styles.loading}
+            />
+          )}
           <View style={styles.innerContainer}>
             <Text style={styles.text}>Guess Number Game</Text>
 
@@ -175,7 +196,6 @@ const StartGameScreen = () => {
               Toggle Theme
             </Button>
           </View>
-
           <AppZoomIcon
             style={styles.zoomIcon}
             zoomOut={zoomOut}
