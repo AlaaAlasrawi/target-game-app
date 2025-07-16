@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Platform,
   StatusBar,
+  useWindowDimensions,
 } from "react-native";
 import { ActivityIndicator, Button, TextInput } from "react-native-paper";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -29,6 +30,11 @@ const StartGameScreen = () => {
 
   const navigation = useNavigation<NavigationProp>();
   const { theme, toggleTheme } = useThemeContext();
+
+  const { width, height } = useWindowDimensions();
+  const isPortrait = height >= width;
+
+  const styles = getStyles(theme, isPortrait); // ✅ USE styles here
 
   function handleChange(text: string) {
     setEnteredNumber(text);
@@ -55,79 +61,13 @@ const StartGameScreen = () => {
     console.log("Loading image...");
     setImageLoading(true);
   }
+
   function handleImageLoaded() {
     console.log("Image loaded!");
     setImageLoading(false);
   }
-  const styles = StyleSheet.create({
-    safeArea: {
-      flex: 1,
-      backgroundColor: theme.background,
-      paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    },
-    container: {
-      flex: 1,
-      justifyContent: "flex-start",
-    },
-    image: {
-      width: "100%",
-      height: 220,
-      resizeMode: "cover",
-    },
-    innerContainer: {
-      paddingHorizontal: 24,
-      paddingTop: 20,
-    },
-    text: {
-      paddingTop: 20,
-      fontSize: 32,
-      fontWeight: "bold",
-      textAlign: "center",
-      marginBottom: 20,
-      fontFamily: "BungeeTint-Regular",
-    },
-    input: {
-      width: "100%",
-      fontSize: 20,
-      textAlign: "center",
-      backgroundColor: theme.surface,
-      borderRadius: 8,
-    },
-    button: {
-      backgroundColor: theme.primary,
-      borderRadius: 12,
-      width: "100%",
-      marginTop: 20,
-    },
-    buttonLabel: {
-      color: theme.buttonText,
-      fontWeight: "bold",
-      fontSize: 16,
-    },
-    buttonContent: {
-      height: 50,
-      justifyContent: "center",
-    },
-    chosenNumber: {
-      textAlign: "center",
-      fontSize: 16,
-      marginBottom: 10,
-      color: theme.text,
-    },
-    error: {
-      color: theme.error,
-      marginTop: 8,
-      textAlign: "center",
-    },
-    zoomIcon: {
-      position: "absolute",
-      bottom: 24,
-      left: 24,
-    },
-    loading: {},
-  });
+  console.log("isPortrait:", isPortrait, "Width:", width, "Height:", height);
 
-  const imageComponet = ``;
   return (
     <SafeAreaView style={styles.safeArea}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -207,5 +147,79 @@ const StartGameScreen = () => {
     </SafeAreaView>
   );
 };
+
+function getStyles(theme: any, isPortrait: boolean) {
+  return StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: theme.background,
+      paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    },
+    container: {
+      flex: 1,
+      justifyContent: "flex-start",
+      flexDirection: isPortrait ? "column" : "row",
+      alignItems: isPortrait ? "flex-start" : "center",
+      paddingHorizontal: isPortrait ? 0 : 20,
+    },
+    image: {
+      width: isPortrait ? "100%" : "40%",
+      height: isPortrait ? 220 : "100%",
+      resizeMode: isPortrait ? "cover" : "contain",
+    },
+    innerContainer: {
+      flex: 1,
+      paddingHorizontal: 24,
+      paddingTop: isPortrait ? 20 : 0,
+    },
+    text: {
+      fontSize: 32,
+      fontWeight: "bold",
+      textAlign: "center",
+      marginBottom: 20,
+      fontFamily: "BungeeTint-Regular",
+      paddingTop: 20,
+    },
+    input: {
+      width: "100%",
+      fontSize: 20,
+      textAlign: "center",
+      backgroundColor: theme.surface,
+      borderRadius: 8,
+    },
+    button: {
+      backgroundColor: theme.primary,
+      borderRadius: 12,
+      width: "100%",
+      marginTop: 20,
+    },
+    buttonLabel: {
+      color: theme.buttonText,
+      fontWeight: "bold",
+      fontSize: 16,
+    },
+    buttonContent: {
+      height: 50,
+      justifyContent: "center",
+    },
+    chosenNumber: {
+      textAlign: "center",
+      fontSize: 16,
+      marginBottom: 10,
+      color: theme.text,
+    },
+    error: {
+      color: theme.error,
+      marginTop: 8,
+      textAlign: "center",
+    },
+    zoomIcon: {
+      position: "absolute",
+      bottom: 24,
+      left: 24,
+    },
+    loading: {},
+  });
+}
 
 export default StartGameScreen;
