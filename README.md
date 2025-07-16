@@ -12,6 +12,7 @@ A fun mobile app built with **React Native + TypeScript**, where the user choose
 - Keeps track of each guess and number of attempts
 - Game over screen with summary
 - Built with **React Native**, **TypeScript**, and **React Navigation**
+- Responsive, orientation-aware UI (Portrait & Landscape supported)
 
 ---
 
