@@ -14,6 +14,12 @@ export const lightTheme = {
   onBackground: "#000000",
   onSurface: "#000000",
   placeholder: "#888888",
+
+  drawerActiveColor: "#444444",
+
+  switchThumb: "#FFFFFF",
+  switchTrackOn: "#444444",
+  switchTrackOff: "#C0C0C0",
 } as const;
 
 export const darkTheme = {
@@ -23,7 +29,7 @@ export const darkTheme = {
   primary: "#F4C762",
   onPrimary: "#000000",
   secondary: "#E8C572",
-  buttonText: "#FFFFFF",
+  buttonText: "#313338",
   onSecondary: "#FFFFFF",
   neutral: "#424242",
   error: "#CF6679",
@@ -33,4 +39,10 @@ export const darkTheme = {
   onSurface: "#FFFFFF",
   placeholder: "#AAAAAA",
   modernBlack: "#888888",
+
+  drawerActiveColor: "#F4C762",
+
+  switchThumb: "#FFD740",
+  switchTrackOn: "#444444",
+  switchTrackOff: "#C0C0C0",
 } as const;

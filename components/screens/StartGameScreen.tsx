@@ -34,7 +34,7 @@ const StartGameScreen = () => {
   const { width, height } = useWindowDimensions();
   const isPortrait = height >= width;
 
-  const styles = getStyles(theme, isPortrait); // ✅ USE styles here
+  const styles = getStyles(theme, isPortrait);
 
   function handleChange(text: string) {
     setEnteredNumber(text);
@@ -58,15 +58,13 @@ const StartGameScreen = () => {
   }
 
   function handleImageLoading() {
-    console.log("Loading image...");
     setImageLoading(true);
   }
 
   function handleImageLoaded() {
-    console.log("Image loaded!");
     setImageLoading(false);
   }
-  console.log("isPortrait:", isPortrait, "Width:", width, "Height:", height);
+  // console.log("isPortrait:", isPortrait, "Width:", width, "Height:", height);
 
   return (
     <SafeAreaView style={styles.safeArea}>

@@ -5,8 +5,10 @@ import { ThemeProvider, useThemeContext } from "../context/ThemeContext";
 import { StatusBar } from "expo-status-bar";
 import { Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import StartGameScreen from "./screens/StartGameScreen";
+import SettingScreen from "./screens/SettingScreen";
 
-// Custom type for header icon configuration
 interface HeaderIconConfig {
   direction: "left" | "right";
   name: keyof typeof MaterialIcons.glyphMap;
@@ -15,7 +17,6 @@ interface HeaderIconConfig {
   size?: number;
 }
 
-// Extended screen interface
 interface Screen {
   name: string;
   component: React.ComponentType<any>;
@@ -26,6 +27,34 @@ interface Screen {
 interface CustomWrapperProps {
   screens: Screen[];
   initialRouteName: string;
+}
+
+const Drawer = createDrawerNavigator();
+export function DrawerNavigator() {
+  const { theme } = useThemeContext();
+  return (
+    <Drawer.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: { backgroundColor: theme.surface },
+        headerTintColor: theme.text,
+        drawerStyle: {
+          backgroundColor: theme.background,
+        },
+        drawerActiveTintColor: theme.drawerActiveColor,
+
+        drawerInactiveTintColor: theme.text,
+
+        drawerLabelStyle: {
+          fontSize: 16,
+          fontWeight: 600,
+        },
+      }}
+    >
+      <Drawer.Screen name="Home" component={StartGameScreen} />
+      <Drawer.Screen name="Setting" component={SettingScreen} />
+    </Drawer.Navigator>
+  );
 }
 
 const InnerWrapper = ({ screens, initialRouteName }: CustomWrapperProps) => {

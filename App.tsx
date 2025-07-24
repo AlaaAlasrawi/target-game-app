@@ -1,5 +1,5 @@
 import StartGameScreen from "./components/screens/StartGameScreen";
-import CustomWrapper from "./components/CustomWrapper";
+import CustomWrapper, { DrawerNavigator } from "./components/CustomWrapper";
 import GameScreen from "./components/screens/GameScreen";
 import { useFonts } from "expo-font";
 
@@ -17,12 +17,8 @@ export default function App() {
       screens={[
         {
           name: "StartGame",
-          component: StartGameScreen,
-          headerIcon: {
-            direction: "right",
-            name: "settings",
-            onPress: () => console.log("Settings pressed"),
-          },
+          component: DrawerNavigator,
+          options: { headerShown: false },
         },
         {
           name: "Game",
