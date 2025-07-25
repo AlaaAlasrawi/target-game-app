@@ -23,6 +23,9 @@ export default function App() {
         {
           name: "Game",
           component: GameScreen,
+          options: {
+            title: "Game On!",
+          },
         },
       ]}
     />

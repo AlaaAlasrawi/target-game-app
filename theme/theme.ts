@@ -4,6 +4,7 @@ export const lightTheme = {
   surface: "#FFFFFF",
   primary: "#F4C762",
   onPrimary: "#000000",
+
   secondary: "#F7D98C",
   buttonText: "#313338",
   onSecondary: "#FFFFFF",
@@ -20,6 +21,8 @@ export const lightTheme = {
   switchThumb: "#FFFFFF",
   switchTrackOn: "#444444",
   switchTrackOff: "#C0C0C0",
+
+  drawer: "#fff",
 } as const;
 
 export const darkTheme = {
@@ -45,4 +48,6 @@ export const darkTheme = {
   switchThumb: "#FFD740",
   switchTrackOn: "#444444",
   switchTrackOff: "#C0C0C0",
+
+  drawer: "#222",
 } as const;

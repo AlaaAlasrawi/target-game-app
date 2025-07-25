@@ -155,10 +155,8 @@ function getStyles(theme: any, isPortrait: boolean) {
     },
     container: {
       flex: 1,
-      justifyContent: "flex-start",
-      flexDirection: isPortrait ? "column" : "row",
-      alignItems: isPortrait ? "flex-start" : "center",
       paddingHorizontal: isPortrait ? 0 : 20,
+      flexDirection: isPortrait ? "column" : "row",
     },
     image: {
       width: isPortrait ? "100%" : "40%",

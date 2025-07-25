@@ -4,7 +4,7 @@ import { PaperProvider } from "react-native-paper";
 import { ThemeProvider, useThemeContext } from "../context/ThemeContext";
 import { StatusBar } from "expo-status-bar";
 import { Pressable } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import StartGameScreen from "./screens/StartGameScreen";
 import SettingScreen from "./screens/SettingScreen";
@@ -39,7 +39,7 @@ export function DrawerNavigator() {
         headerStyle: { backgroundColor: theme.surface },
         headerTintColor: theme.text,
         drawerStyle: {
-          backgroundColor: theme.background,
+          backgroundColor: theme.drawer,
         },
         drawerActiveTintColor: theme.drawerActiveColor,
 
@@ -51,8 +51,34 @@ export function DrawerNavigator() {
         },
       }}
     >
-      <Drawer.Screen name="Home" component={StartGameScreen} />
-      <Drawer.Screen name="Setting" component={SettingScreen} />
+      <Drawer.Screen
+        name="Home"
+        component={StartGameScreen}
+        options={{
+          title: "Home",
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="home-sharp" color={color} size={size} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Setting"
+        component={SettingScreen}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="settings-sharp" color={color} size={24} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={() => ""}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="person" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 }
