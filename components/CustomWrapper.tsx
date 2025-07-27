@@ -79,6 +79,15 @@ export function DrawerNavigator() {
           ),
         }}
       />
+      <Drawer.Screen
+        name="Logout"
+        component={() => ""}
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="log-out-outline" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 }
